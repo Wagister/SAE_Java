@@ -1,24 +1,24 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Pays {
     private String nom;
-    private List<Participant> listeParticipants; 
+    private Set<Participant> sportifs; 
 
     public Pays(String nom) {
         this.nom = nom;
-        this.listeParticipants = new ArrayList<>();
-    } 
-
-    public boolean ajouterParticipant(Participant participant) {
-        return this.listeParticipants.add(participant);
-    }   
-
-    public int getIndiceParticipant(Participant participant) {
-        return this.listeParticipants.indexOf(participant);
+        this.sportifs = new HashSet<>();
     }
 
-    public boolean enleverParticipant(int indice) {
-        return this.listeParticipants.remove(indice);
+    public String getNomPays() {
+        return this.nom;
+    }
+
+    public boolean ajouterSportif(Participant participant) {
+        return this.sportifs.add(participant);
+    }   
+
+    public boolean enleverSportif(Participant participant) {
+        return this.sportifs.remove(participant);
     }
 }
