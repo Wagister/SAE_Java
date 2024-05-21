@@ -14,6 +14,7 @@ public class Equipe implements Participant {
         this.coequipiers = new HashSet<>(taille);
     }
 
+    @Override
     public boolean estMasculin() {
         return this.sexe;
     }
@@ -22,6 +23,7 @@ public class Equipe implements Participant {
         return this.taille;
     }
 
+    @Override
     public int getForce() {
         int somme = 0;
         for (Athlete coequipier : this.coequipiers) {
@@ -30,6 +32,7 @@ public class Equipe implements Participant {
         return somme;
     }
 
+    @Override
     public int getEndurance() {
         int somme = 0;
         for (Athlete coequipier : this.coequipiers) {
@@ -38,6 +41,7 @@ public class Equipe implements Participant {
         return somme;
     }
 
+    @Override
     public int getAgilite() {
         int somme = 0;
         for (Athlete coequipier : this.coequipiers) {
@@ -46,6 +50,7 @@ public class Equipe implements Participant {
         return somme;
     }
 
+    @Override
     public Pays getNationalite() {
         return this.nationalite;
     }
