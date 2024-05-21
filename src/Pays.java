@@ -13,10 +13,13 @@ public class Pays {
     public String getNomPays() {
         return this.nom;
     }
-
+    
     public boolean ajouterSportif(Participant participant) {
-        return this.sportifs.add(participant);
-    }   
+        if (participant.getNationalite().equals(this)) {
+            return this.sportifs.add(participant);
+        }
+        return false;
+    }      
 
     public boolean enleverSportif(Participant participant) {
         return this.sportifs.remove(participant);
