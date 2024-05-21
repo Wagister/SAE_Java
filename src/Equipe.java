@@ -18,6 +18,10 @@ public class Equipe implements Participant {
         return this.sexe;
     }
 
+    public int getTaille() {
+        return this.taille;
+    }
+
     public int getForce() {
         int somme = 0;
         for (Athlete coequipier : this.coequipiers) {
