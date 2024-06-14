@@ -41,16 +41,53 @@ public class EpreuveCollecTest {
 
     @Test
     public void testGenererClassement() {
-        assertEquals(true, Epreuve.genererClassement(new ArrayList<>(this.epreuveCollective.getParticipants()), null) instanceof java.util.Map);
+        assertEquals(true, Epreuve.genererClassement(new ArrayList<>(this.epreuveCollective.getParticipants()),
+                null) instanceof java.util.Map);
     }
 
     @Test
     public void testAjouterEquipe() {
         try {
             assertEquals(true, this.epreuveCollective.ajouterEquipe(new Equipe(true, 4, new Pays("Maroc"))));
-        } 
-        catch (MauvaisSexeException e) {}
-        catch (PaysExistantException e) {}
+        } catch (MauvaisSexeException e) {
+        } catch (PaysExistantException e) {
+        }
+    }
+
+    @Test
+    public void testAjouterEquipeFalse() {
+        try {
+            Pays pays = new Pays("France");
+            Equipe equipe = new Equipe(true, 4, pays);
+            this.epreuveCollective.ajouterEquipe(equipe);
+            assertEquals(false, this.epreuveCollective.ajouterEquipe(equipe));
+        } catch (MauvaisSexeException e) {
+        } catch (PaysExistantException e) {
+        }
+    }
+
+    @Test
+    public void testEnleverEquipe() {
+        try {
+            Pays pays = new Pays("France");
+            Equipe equipe = new Equipe(true, 4, pays);
+            this.epreuveCollective.ajouterEquipe(equipe);
+            assertEquals(true, this.epreuveCollective.enleverEquipe(equipe));
+        } catch (MauvaisSexeException e) {
+        } catch (PaysExistantException e) {
+        }
+    }
+
+    @Test
+    public void testEnleverEquipeFalse() {
+        try {
+            Pays pays = new Pays("France");
+            Equipe equipe = new Equipe(true, 4, pays);
+            this.epreuveCollective.ajouterEquipe(equipe);
+            assertEquals(false, this.epreuveCollective.enleverEquipe(new Equipe(true, 4, pays)));
+        } catch (MauvaisSexeException e) {
+        } catch (PaysExistantException e) {
+        }
     }
 
 }
