@@ -28,10 +28,10 @@ public class EquipeTest {
             this.equipe.ajouterCoequipier(new Athlete("Pogba", "Paul", true, 10, 10, 10, this.pays));
             this.equipe.ajouterCoequipier(new Athlete("Giroud", "Olivier", true, 10, 10, 10, this.pays));
             this.equipe.ajouterCoequipier(new Athlete("Lloris", "Hugo", true, 10, 10, 10, this.pays));
-        } 
-        catch (PaysExistantException e) {} 
-        catch (MauvaisSexeException e) {}
-        catch (MauvaisPaysException e) {}
+        } catch (PaysExistantException e) {
+        } catch (MauvaisSexeException e) {
+        } catch (MauvaisPaysException e) {
+        }
     }
 
     @Test
@@ -76,6 +76,15 @@ public class EquipeTest {
             e.toString();
         }
 
+        try {
+            assertEquals(true,
+                    this.equipe.ajouterCoequipier(new Athlete("Pogba", "Paul", true, 10, 10, 10, this.pays)));
+        } catch (MauvaisSexeException e) {
+            e.toString();
+        } catch (MauvaisPaysException e) {
+            e.toString();
+        }
+
     }
 
     @Test
@@ -85,17 +94,32 @@ public class EquipeTest {
     }
 
     @Test
+    public void testEnleverCoequipier2() {
+        assertEquals(false,
+                this.equipe.enleverCoequipier(new Athlete("Pogba", "Paul", true, 10, 10, 10, this.pays)));
+    }
+
+    @Test
+    public void testMoyenne() {
+        assertEquals(10, this.equipe.getMoyenne());
+    }
+
+    @Test
     public void testEquals() {
         Equipe equipe2 = new Equipe(true, 11, this.pays);
         try {
             equipe2.ajouterCoequipier(new Athlete("Pogba", "Paul", true, 10, 10, 10, this.pays));
             equipe2.ajouterCoequipier(new Athlete("Giroud", "Olivier", true, 10, 10, 10, this.pays));
             equipe2.ajouterCoequipier(new Athlete("Lloris", "Hugo", true, 10, 10, 10, this.pays));
+            equipe = new Equipe(true, 11, this.pays);
+            equipe.ajouterCoequipier(new Athlete("Benzema", "Karim", true, 10, 10, 10, this.pays));
         } catch (MauvaisSexeException e) {
             e.toString();
         } catch (MauvaisPaysException e) {
             e.toString();
         }
         assertEquals(true, this.equipe.equals(equipe2));
+        assertEquals(false, this.equipe.equals(equipe));
+        assertEquals(false, this.equipe.equals(null));
     }
 }
