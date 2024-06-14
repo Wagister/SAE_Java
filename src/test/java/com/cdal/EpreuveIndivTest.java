@@ -14,6 +14,8 @@ import main.java.com.cdal.Sport;
 import main.java.com.cdal.Athlete;
 import main.java.com.cdal.Epreuve;
 import main.java.com.cdal.MauvaisSexeException;
+import main.java.com.cdal.Comparaison;
+import main.java.com.cdal.ComparerParticipants;
 
 public class EpreuveIndivTest {
 
@@ -41,7 +43,8 @@ public class EpreuveIndivTest {
 
     @Test
     public void testGenererClassement() {
-        assertEquals(true, Epreuve.genererClassement(new ArrayList<>(this.epreuveIndividuelle.getParticipants()), null) instanceof java.util.Map);
+        assertEquals(true, Epreuve.genererClassement(new ArrayList<>(this.epreuveIndividuelle.getParticipants()),
+                null) instanceof java.util.Map);
     }
 
     @Test
@@ -50,10 +53,49 @@ public class EpreuveIndivTest {
         try {
             Pays france = new Pays("France");
             this.epreuveIndividuelle.ajouterAthlete(new Athlete("Pogba", "Paul", true, 10, 10, 10, france));
-            assertEquals(false, this.epreuveIndividuelle
-                    .ajouterAthlete(new Athlete("Pogba", "Paul", true, 10, 10, 10, france)));
-        } 
-        catch (MauvaisSexeException e) {} 
-        catch (PaysExistantException e) {}
+            assertEquals(false,
+                    this.epreuveIndividuelle.ajouterAthlete(new Athlete("Pogba", "Paul", true, 10, 10, 10, france)));
+        } catch (MauvaisSexeException e) {
+        } catch (PaysExistantException e) {
+        }
+    }
+
+    @Test
+    public void testAjouterAthleteMauvaisSexe() {
+        try {
+            Pays france = new Pays("France");
+            this.epreuveIndividuelle.ajouterAthlete(new Athlete("Pogba", "Paul", true, 10, 10, 10, france));
+            assertEquals(false,
+                    this.epreuveIndividuelle.ajouterAthlete(new Athlete("Pogba", "Paul", false, 10, 10, 10, france)));
+        } catch (MauvaisSexeException e) {
+            assertEquals(true, e instanceof MauvaisSexeException);
+        } catch (PaysExistantException e) {
+        }
+    }
+
+    @Test
+    public void testAjouterAthleteMauvaiseNationalite() {
+        try {
+            Pays france = new Pays("France");
+            Pays allemagne = new Pays("Allemagne");
+            this.epreuveIndividuelle.ajouterAthlete(new Athlete("Pogba", "Paul", true, 10, 10, 10, france));
+            assertEquals(false,
+                    this.epreuveIndividuelle.ajouterAthlete(new Athlete("Pogba", "Paul", true, 10, 10, 10, allemagne)));
+        } catch (MauvaisSexeException e) {
+        } catch (PaysExistantException e) {
+            assertEquals(true, e instanceof PaysExistantException);
+        }
+    }
+
+    @Test
+    public void testEnleverAthlete() {
+        try {
+            Pays france = new Pays("France");
+            Athlete athlete = new Athlete("Pogba", "Paul", true, 10, 10, 10, france);
+            this.epreuveIndividuelle.ajouterAthlete(athlete);
+            assertEquals(true, this.epreuveIndividuelle.enleverAthlete(athlete));
+        } catch (MauvaisSexeException e) {
+        } catch (PaysExistantException e) {
+        }
     }
 }
