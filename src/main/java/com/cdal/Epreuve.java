@@ -1,5 +1,5 @@
-package main.java.com.cdal;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +64,15 @@ public abstract class Epreuve {
 
         Map<Integer, Participant> classement = new HashMap<>();
         for (int i = 0; i < copie.size(); i++) {
-            classement.put(copie.size() - i, copie.get(i));
+            Participant participant = copie.get(i);
+            classement.put(i + 1, participant);
+        }
+
+        List<String> prix = Arrays.asList("Or", "Argent", "Bronze");
+        for (int i = 0; i < 3; i++) {
+            Map<String, Integer> medaillesPays = classement.get(i + 1).getNationalite().medailles;
+            String currPrix = prix.get(i);
+            medaillesPays.replace(currPrix, medaillesPays.get(currPrix) + 1);
         }
 
         return classement;

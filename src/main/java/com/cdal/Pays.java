@@ -1,7 +1,9 @@
-package main.java.com.cdal;
+
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Classe représentant un pays avec un ensemble de sportifs.
@@ -9,6 +11,7 @@ import java.util.HashSet;
 public class Pays {
     private String nom;
     private Set<Athlete> sportifs;
+    public Map<String, Integer> medailles;
     public static Set<String> ensemblePays = new HashSet<String>();
 
     /**
@@ -20,6 +23,10 @@ public class Pays {
         if (!Pays.ensemblePays.contains(nom)) {
             this.nom = nom;
             this.sportifs = new HashSet<>();
+            this.medailles = new HashMap<>();
+            this.medailles.put("Or", 0);
+            this.medailles.put("Argent", 0);
+            this.medailles.put("Bronze", 0);
             Pays.ensemblePays.add(this.nom);
         } else {
             throw new PaysExistantException();
